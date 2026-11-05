@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Shroombrew - Wii Points</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+<script src="i18n.js"></script><script src="app.js"></script></head>
+<body><div class="wrap">
+<header class="top"><h1 data-i18n="k_title">Wii Points Card</h1><div class="rule"></div>
+<nav id="nav" data-page="cards"></nav></header>
+
+<div id="msg"></div>
+
+<div class="box hero">
+  <h2 data-i18n="k_h">Get your Wii Points card code</h2>
+  <p data-i18n="k_p">Each card is worth 1000 Wii Points and works once.</p>
+  <button id="make" class="main" data-i18n="k_btn">Make a card</button>
+  <p class="timer" id="timer"></p>
+  <p class="muted" data-i18n="k_howto"></p>
+  <p class="muted" data-i18n="k_rules"></p>
+</div>
+
+<div id="linkhint" class="box" style="display:none"><span data-i18n="k_need_link">Link your Wii to add points from here.</span>
+  <a class="btn sm" href="link.html" data-i18n="n_link">Link</a></div>
+
+<div id="cards" class="cardlist"></div>
+
+<script>
+(function () {
+  var $ = function (i) { return document.getElementById(i); };
+  var KEY = "shroombrewCards", NEXT = "shroombrewNextCard";
+  var linked = false, timerId = null;
+
+  function load() { try { return JSON.parse(localStorage.getItem(KEY) || "[]"); } catch (e) { return []; } }
+  function save(list) { try { localStorage.setItem(KEY, JSON.stringify(list.slice(0, 25))); } catch (e) {} }
+  function remove(code) { save(load().filter(function (c) { return c.code !== code; })); render(); }
+
+  function render() {
+    var box = $("cards"); App.clear(box);
+    load().forEach(function (c) {
+      var d = document.createElement("div"); d.className = "card";
+      var s = document.createElement("small"); s.textContent = I18N.t("k_card"); d.appendChild(s);
+      var p = document.createElement("span"); p.className = "pts"; p.textContent = "1000"; d.appendChild(p);
+      var n = document.createElement("div"); n.className = "num"; n.textContent = c.code; d.appendChild(n);
+      var row = document.createElement("div"); row.className = "row";
+      var cp = document.createElement("button"); cp.textContent = I18N.t("k_copy");
+      cp.onclick = function () { App.copyText(c.code.replace(/ /g, ""), function () { cp.textContent = I18N.t("k_copied"); setTimeout(function () { cp.textContent = I18N.t("k_copy"); }, 1500); }); };
+      row.appendChild(cp);
+      if (linked) {
+        var add = document.createElement("button"); add.className = "main"; add.textContent = I18N.t("k_addnow");
+        add.onclick = function () {
+          add.disabled = true;
+          App.call("POST", "cards/redeem", { code: c.code }, function (st, r) {
+            if (st === 200) { App.say(I18N.t("k_added", { n: r.added })); remove(c.code); }
+            else { App.say(App.errText(r), true); if (r.key === "er_card_bad") remove(c.code); else add.disabled = false; }
+          });
+        };
+        row.appendChild(add);
+      }
+      d.appendChild(row); box.appendChild(d);
+    });
+  }
+
+  function tick() {
+    var left = 0;
+    try { left = Math.ceil((parseInt(localStorage.getItem(NEXT) || "0", 10) - Date.now()) / 1000); } catch (e) {}
+    var b = $("make");
+    if (left > 0) { b.disabled = true; $("timer").textContent = I18N.t("k_wait", { n: left }); }
+    else { b.disabled = false; $("timer").textContent = ""; clearInterval(timerId); timerId = null; }
+  }
+  function startTimer(sec) {
+    try { localStorage.setItem(NEXT, String(Date.now() + sec * 1000)); } catch (e) {}
+    tick();
+    if (!timerId) timerId = setInterval(tick, 500);
+  }
+
+  $("make").onclick = function () {
+    $("make").disabled = true;
+    App.call("POST", "cards/generate", {}, function (st, d) {
+      if (st === 200) {
+        var list = load(); list.unshift({ code: d.code, at: Date.now() }); save(list);
+        render(); $("msg").className = ""; // the new card itself is the result
+        startTimer(d.cooldown || 15);
+      } else {
+        App.say(App.errText(d), true);
+        startTimer(st === 429 ? Math.min(d.retryAfter || 15, 3600) : 5);
+      }
+    });
+  };
+
+  I18N.ready(function () {
+    App.call("GET", "me", null, function (st, d) {
+      linked = st === 200 && d.linked;
+      $("linkhint").style.display = linked ? "none" : "block";
+      render();
+    });
+    render(); tick(); if (!timerId) timerId = setInterval(tick, 500);
+    I18N.onChange = render;
+  });
+})();
+</script>
+</div></body></html>

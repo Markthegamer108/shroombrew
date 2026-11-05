@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Shroombrew Status</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+<script src="i18n.js"></script></head>
+<body><div class="wrap">
+<header class="top"><h1 data-i18n="st_title">Status</h1><div class="rule"></div>
+<nav id="nav" data-page="status"></nav></header>
+<div class="box"><h2 id="s">...</h2>
+<p class="muted" id="d"></p>
+<p data-i18n="st_help">Down for you but up here? See Support.</p></div>
+<script>
+(function(){
+var state=null;
+function show(){
+  if(!state)return;
+  document.getElementById("s").innerHTML=state.ok?"<span class='ok'>"+I18N.t("st_online")+"</span>":"<span class='bad'>"+I18N.t("st_offline")+"</span>";
+  document.getElementById("d").textContent=state.ok?I18N.t("st_resp",{ms:state.ms,time:state.time}):I18N.t("st_fail",{n:state.code});
+}
+I18N.ready(function(){
+  document.getElementById("s").textContent=I18N.t("st_checking");
+  I18N.onChange=show;
+  var x=new XMLHttpRequest(),t0=new Date().getTime();
+  x.open("GET","https://shroombrew.3-72-19-139.sslip.io/healthz?t="+t0,true);
+  x.onreadystatechange=function(){if(x.readyState!==4)return;
+    state={ok:x.status===200,code:x.status,ms:new Date().getTime()-t0,time:new Date().toLocaleString()};show();};
+  x.send();
+});
+})();
+</script>
+<script src="https://shroombrew.3-72-19-139.sslip.io/shroombrew-season.js"></script>
+</div></body></html>

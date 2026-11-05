@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Shroombrew Title Sheet</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+<script src="i18n.js"></script>
+<script src="https://shroombrew.3-72-19-139.sslip.io/oss/serv/games.js"></script></head>
+<body><div class="wrap">
+<header class="top"><h1 data-i18n="t_title">Title Sheet</h1><div class="rule"></div>
+<nav id="nav" data-page="titles"></nav></header>
+<div class="box">
+  <input id="q" type="search" data-i18n-ph="t_search" placeholder="Search titles, publishers, descriptions..." size="38" autofocus>
+  <select id="genre"><option value="" data-i18n="t_all_genres">All genres</option></select>
+  <select id="sort">
+    <option value="alpha" data-i18n="t_alpha">Alphabetical</option>
+    <option value="new" data-i18n="t_new">Newest</option>
+    <option value="old" data-i18n="t_old">Oldest</option>
+    <option value="small" data-i18n="t_small">Smallest download</option>
+    <option value="big" data-i18n="t_big">Largest download</option>
+  </select>
+  <span id="count" class="muted"></span>
+</div>
+<div class="box"><table id="t"><thead><tr><th data-i18n="t_c_title">Title</th><th data-i18n="t_c_genre">Genre</th><th data-i18n="t_c_pub">Publisher</th><th data-i18n="t_c_rel">Released</th><th data-i18n="t_c_size">Size</th><th></th></tr></thead><tbody></tbody></table>
+<p class="muted" id="more"></p></div>
+<script>
+(function(){
+var G=gameslist.filter(function(g){return g.id;});
+var gs=document.getElementById("genre");
+(function(){var s={},o=[];G.forEach(function(g){if(g.genre&&!s[g.genre]){s[g.genre]=1;o.push(g.genre);}});o.sort().forEach(function(v){var e=document.createElement("option");e.value=v;e.textContent=v;gs.appendChild(e);});})();
+function norm(s){return String(s||"").toLowerCase().replace(/[^a-z0-9]/g,"");}
+function mb(b){return b?(b/1048576<1?(b/1024).toFixed(0)+" KB":(b/1048576).toFixed(1)+" MB"):"";}
+function slugOf(g){return g.link&&g.link.indexOf("/download/")===0?g.link.slice(10):"";}
+var LIMIT=300;
+function render(){
+  var q=norm(document.getElementById("q").value),ge=gs.value,s=document.getElementById("sort").value;
+  var L=G.filter(function(g){
+    if(ge&&g.genre!==ge)return false;
+    return !q||norm(g.title1+g.title2+g.publisher+g.genre+g.description).indexOf(q)>-1;});
+  L.sort(function(a,b){
+    if(s==="new")return (b.releaseUnix||0)-(a.releaseUnix||0);
+    if(s==="old")return (a.releaseUnix||0)-(b.releaseUnix||0);
+    if(s==="small")return (a.size||0)-(b.size||0);
+    if(s==="big")return (b.size||0)-(a.size||0);
+    return a.title1.localeCompare(b.title1);});
+  var tb=document.querySelector("#t tbody");tb.innerHTML="";
+  L.slice(0,LIMIT).forEach(function(g){
+    var tr=document.createElement("tr");
+    [g.title1,g.genre,g.publisher,g.date,mb(g.size)].forEach(function(v){var td=document.createElement("td");td.textContent=v||"";tr.appendChild(td);});
+    var td=document.createElement("td");
+    if(g.link){var a=document.createElement("a");a.href=g.link;a.textContent=I18N.t("t_download");td.appendChild(a);
+      var sl=slugOf(g);if(sl){td.appendChild(document.createTextNode(" | "));var b=document.createElement("a");b.href="friends.html#gift="+encodeURIComponent(sl);b.textContent=I18N.t("t_gift");td.appendChild(b);}}
+    tr.appendChild(td);tb.appendChild(tr);});
+  document.getElementById("count").textContent=I18N.t("t_count",{n:L.length});
+  document.getElementById("more").textContent=L.length>LIMIT?I18N.t("t_more",{n:LIMIT}):"";
+}
+document.getElementById("q").addEventListener("input",render);
+gs.addEventListener("change",render);
+document.getElementById("sort").addEventListener("change",render);
+I18N.ready(function(){render();I18N.onChange=render;});
+})();
+</script>
+<script src="https://shroombrew.3-72-19-139.sslip.io/shroombrew-season.js"></script>
+</div></body></html>

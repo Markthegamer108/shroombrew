@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Shroombrew - Points history</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+<script src="i18n.js"></script><script src="app.js"></script></head>
+<body><div class="wrap">
+<header class="top"><h1 data-i18n="h_title">Points history</h1><div class="rule"></div>
+<nav id="nav" data-page="history"></nav></header>
+
+<div id="msg"></div>
+
+<div id="needlink" class="box" style="display:none"><p data-i18n="f_need_link">Link your Wii to use this page.</p>
+  <a class="btn main" href="link.html" data-i18n="f_go_link">Link now</a></div>
+
+<div id="main" style="display:none">
+  <div class="box"><p><b class="big" id="points">0</b> <span data-i18n="f_points">Wii Points</span></p></div>
+  <div class="box"><table><tbody id="rows"></tbody></table><p class="muted" id="empty" data-i18n="h_empty"></p></div>
+</div>
+
+<script>
+(function () {
+  var $ = function (i) { return document.getElementById(i); };
+  var hist = [];
+  function label(r) {
+    var s = I18N.t("h_" + r.reason);
+    return s === "h_" + r.reason ? r.reason : s;
+  }
+  function render() {
+    var body = $("rows"); App.clear(body);
+    $("empty").style.display = hist.length ? "none" : "block";
+    hist.forEach(function (r) {
+      var tr = document.createElement("tr"), a = document.createElement("td"), b = document.createElement("td"), c = document.createElement("td"), d = document.createElement("td");
+      a.textContent = new Date(r.at).toLocaleString();
+      b.textContent = label(r) + (r.ref && r.reason !== "card" && r.reason !== "referral_bonus" ? " (" + r.ref + ")" : "");
+      c.textContent = (r.delta > 0 ? "+" : "") + r.delta; c.className = r.delta > 0 ? "ok" : "bad";
+      d.textContent = r.balance;
+      tr.appendChild(a); tr.appendChild(b); tr.appendChild(c); tr.appendChild(d); body.appendChild(tr);
+    });
+  }
+  I18N.ready(function () {
+    App.needLink(function (me) {
+      $("main").style.display = "block"; $("points").textContent = me.points;
+      App.call("GET", "history", null, function (st, d) { if (st === 200) { hist = d.history || []; render(); } else App.say(App.errText(d), true); });
+    }, function () { $("needlink").style.display = "block"; });
+    I18N.onChange = render;
+  });
+})();
+</script>
+</div></body></html>

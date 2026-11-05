@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Shroombrew - Link your Wii</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+<script src="i18n.js"></script><script src="app.js"></script></head>
+<body><div class="wrap">
+<header class="top"><h1 data-i18n="lk_title">Link your Wii</h1><div class="rule"></div>
+<nav id="nav" data-page="link"></nav></header>
+
+<div id="msg"></div>
+
+<div class="box" id="form">
+  <p data-i18n="lk_p">On your Wii open Settings, choose Link to the website, press Get a new code and type it here.</p>
+  <p><input id="code" maxlength="9" size="12" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="XXXX-XXXX" class="big" style="text-transform:uppercase;width:12em">
+     <button id="go" class="main" data-i18n="lk_btn">Link</button></p>
+</div>
+
+<div class="box" id="done" style="display:none">
+  <p class="ok"><b data-i18n="lk_state">Your Wii is linked.</b></p>
+  <p><a class="btn main" href="friends.html" data-i18n="n_friends">Friends</a>
+     <a class="btn" href="cards.html" data-i18n="n_cards">Wii Points</a>
+     <button id="out" data-i18n="lk_signout">Sign out of this site</button></p>
+</div>
+
+<script>
+(function () {
+  var $ = function (i) { return document.getElementById(i); };
+  function show(linked) { $("form").style.display = linked ? "none" : "block"; $("done").style.display = linked ? "block" : "none"; }
+  function check() { App.call("GET", "me", null, function (st, d) { show(st === 200 && d.linked); }); }
+  $("go").onclick = function () {
+    $("go").disabled = true;
+    App.call("POST", "link", { code: $("code").value }, function (st, d) {
+      $("go").disabled = false;
+      if (st === 200) { App.say(I18N.t("lk_ok")); $("code").value = ""; show(true); }
+      else App.say(App.errText(d), true);
+    });
+  };
+  $("code").onkeydown = function (e) { if (e.keyCode === 13) $("go").onclick(); };
+  $("out").onclick = function () { App.call("POST", "unlink", {}, function () { $("msg").className = ""; show(false); }); };
+  I18N.ready(check);
+})();
+</script>
+</div></body></html>

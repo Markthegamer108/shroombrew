@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Shroombrew Support</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+<script src="i18n.js"></script></head>
+<body><div class="wrap">
+<header class="top"><h1 data-i18n="s_title">Support</h1><div class="rule"></div>
+<nav id="nav" data-page="support"></nav></header>
+
+<div class="box"><h2 data-i18n="s_checker">Error code checker</h2>
+  <input id="code" inputmode="numeric" maxlength="6" data-i18n-ph="s_ph" placeholder="e.g. 209601">
+  <button id="go" data-i18n="s_check">Check</button>
+  <div id="res" style="margin-top:10px"></div>
+  <p class="muted"><a href="status.html" data-i18n="s_hint">Check the status page first.</a></p>
+</div>
+
+<div class="box"><h2 data-i18n="s_install">Install checklist</h2><ol>
+  <li data-i18n="s_i1"></li><li data-i18n="s_i2"></li><li data-i18n="s_i3"></li>
+  <li data-i18n="s_i4"></li><li data-i18n="s_i5"></li><li data-i18n="s_i6"></li>
+</ol></div>
+
+<div class="box"><h2 data-i18n="s_points">Wii Points card helper</h2>
+  <p data-i18n="s_points_p"></p>
+  <input id="card" size="26" placeholder="XXXX-XXXX-XXXX-XXXX">
+  <button id="clean" data-i18n="s_clean">Clean</button> <b id="cardout"></b>
+</div>
+
+<div class="box"><h2 data-i18n="s_known">Known issues</h2><ul>
+  <li data-i18n="s_k1"></li><li data-i18n="s_k2"></li><li data-i18n="s_k3"></li><li data-i18n="s_k4"></li>
+  <li data-i18n="s_k5"></li><li data-i18n="s_k6"></li><li data-i18n="s_k7"></li><li data-i18n="s_k8"></li>
+</ul></div>
+
+<div class="box"><h2 data-i18n="s_before">Before you ask for help, include</h2><ul>
+  <li data-i18n="s_b1"></li><li data-i18n="s_b2"></li><li data-i18n="s_b3"></li></ul></div>
+
+<script>
+(function(){
+var $=function(i){return document.getElementById(i);};
+var SPECIFIC={204034:1,204036:1,204058:1,201022:1,205100:1,205502:1,205151:1,205958:1,209600:1,209601:1,209557:1,109139:1,51330:1,51331:1};
+var last=null;
+function explain(c){
+  var n=parseInt(c,10);
+  if(SPECIFIC[n])return ["bad",I18N.t("e_"+n)];
+  if(n>=204700&&n<=204800)return ["bad",I18N.t("e_http",{n:n-204300})];
+  if([209622,209569,209531,209577].indexOf(n)>-1)return ["bad",I18N.t("e_server")];
+  if(c.length===5&&c.charAt(0)==="5")return ["bad",I18N.t("e_conn")];
+  if(n>=205000&&n<=205999)return ["bad",I18N.t("e_backend")];
+  return ["muted",I18N.t("e_unknown")];
+}
+function show(){
+  if(last===null)return;
+  var e=explain(last),b=document.createElement("b"),s=document.createElement("span");
+  b.textContent=last;s.className=e[0];s.textContent=e[1];
+  var r=$("res");r.innerHTML="";r.appendChild(b);r.appendChild(document.createTextNode(" - "));r.appendChild(s);
+}
+$("go").onclick=function(){var c=$("code").value.replace(/\D/g,"");if(!c){last=null;$("res").innerHTML="";return;}last=c;show();};
+$("code").onkeydown=function(e){if(e.keyCode===13)$("go").onclick();};
+$("clean").onclick=function(){var v=$("card").value.replace(/[^A-Za-z0-9]/g,"");
+  $("cardout").textContent=v.length===16?v:I18N.t("s_card_err",{n:v.length});};
+I18N.ready(function(){I18N.onChange=show;});
+})();
+</script>
+<script src="https://shroombrew.3-72-19-139.sslip.io/shroombrew-season.js"></script>
+</div></body></html>
