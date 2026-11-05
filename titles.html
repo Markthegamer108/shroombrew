@@ -2,7 +2,7 @@
 <html><head><meta charset="utf-8"><title>Shroombrew Title Sheet</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="style.css">
-<script src="i18n.js"></script>
+<script src="i18n.js"></script><script src="app.js"></script>
 <script src="https://shroombrew.3-72-19-139.sslip.io/oss/serv/games.js"></script></head>
 <body><div class="wrap">
 <header class="top"><h1 data-i18n="t_title">Title Sheet</h1><div class="rule"></div>
@@ -46,7 +46,7 @@ function render(){
     var tr=document.createElement("tr");
     [g.title1,g.genre,g.publisher,g.date,mb(g.size)].forEach(function(v){var td=document.createElement("td");td.textContent=v||"";tr.appendChild(td);});
     var td=document.createElement("td");
-    if(g.link){var a=document.createElement("a");a.href=g.link;a.textContent=I18N.t("t_download");td.appendChild(a);
+    if(g.link){var a=document.createElement("a");a.href=(g.link.charAt(0)==="/"&&window.App?App.base:"")+g.link;a.textContent=I18N.t("t_download");td.appendChild(a);
       var sl=slugOf(g);if(sl){td.appendChild(document.createTextNode(" | "));var b=document.createElement("a");b.href="friends.html#gift="+encodeURIComponent(sl);b.textContent=I18N.t("t_gift");td.appendChild(b);}}
     tr.appendChild(td);tb.appendChild(tr);});
   document.getElementById("count").textContent=I18N.t("t_count",{n:L.length});
