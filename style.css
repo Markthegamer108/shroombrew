@@ -13,17 +13,18 @@ body{margin:0;color:var(--ink);font-family:"WiiShop","Segoe UI","Hiragino Sans",
 header.top{padding-top:22px;position:relative}
 h1{margin:0;color:var(--cyan);font-weight:normal;font-size:38px;line-height:1.2}
 h2{color:var(--cyan);font-weight:normal;font-size:26px;margin:0 0 8px}
-.rule{height:6px;margin:12px 0 18px;background:radial-gradient(circle,#9aa 1px,transparent 1.6px) 0 50%/8px 6px repeat-x}
+/* The shop's dotted rule: small grey dots 8px apart (the Wii font's middle dot). */
+.rule{height:6px;margin:12px 0 18px;background:radial-gradient(circle,#8c8c8c 1.2px,transparent 1.7px) 0 50%/8px 6px repeat-x}
 a{color:var(--cyan-d)}
 
 nav{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 4px}
-nav a,nav span.cur{display:inline-block;padding:5px 16px;border-radius:999px;border:2px solid var(--cyan);color:var(--cyan-d);background:#fff;text-decoration:none;font-size:16px;box-shadow:0 2px 5px rgba(52,190,237,.25)}
+nav a,nav span.cur{display:inline-block;padding:5px 16px;border-radius:999px;border:2px solid var(--cyan);color:var(--cyan-d);background:#fff;text-decoration:none;font-size:16px}
 nav a:hover{background:var(--pale)}
-nav span.cur{background:linear-gradient(#5fd0f6,var(--cyan));color:#fff;border-color:#fff;box-shadow:0 0 0 2px var(--cyan),0 2px 6px rgba(52,190,237,.45)}
+nav span.cur{background:var(--cyan);color:#fff;border-color:#fff;box-shadow:0 0 0 2px var(--cyan)}
 header.top nav select{position:absolute;top:30px;right:0;margin:0}
 #bottomrule{margin-top:26px}
 
-.box{background:#fff;border:2px solid var(--edge);border-radius:14px;padding:16px 20px;margin:0 0 18px;box-shadow:0 2px 8px rgba(52,190,237,.12)}
+.box{background:#fff;border:2px solid var(--edge);border-radius:14px;padding:16px 20px;margin:0 0 18px}
 .box>p:first-child{margin-top:0}.box>p:last-child{margin-bottom:0}
 .muted{color:var(--mute);font-size:15px}.ok{color:var(--ok)}.bad{color:var(--bad)}
 .hero{text-align:center;padding:10px 0 6px}
@@ -31,25 +32,27 @@ header.top nav select{position:absolute;top:30px;right:0;margin:0}
 
 input,select,textarea{font:inherit;color:var(--ink);padding:7px 12px;border:2px solid var(--edge);border-radius:10px;background:#fff;max-width:100%}
 input:focus,select:focus{outline:0;border-color:var(--cyan)}
-button,.btn{font:inherit;display:inline-block;cursor:pointer;text-decoration:none;color:var(--cyan-d);background:#fff;border:2px solid var(--cyan);border-radius:999px;padding:6px 22px;box-shadow:0 2px 5px rgba(52,190,237,.3)}
+button,.btn{font:inherit;display:inline-block;cursor:pointer;text-decoration:none;color:var(--cyan-d);background:#fff;border:2px solid var(--cyan);border-radius:999px;padding:6px 22px}
 button:hover,.btn:hover{background:var(--pale)}
-button.main,.btn.main{color:#fff;background:linear-gradient(#5fd0f6,var(--cyan));border-color:#fff;box-shadow:0 0 0 2px var(--cyan),0 3px 8px rgba(52,190,237,.45)}
+button.main,.btn.main{color:#fff;background:var(--cyan);border-color:#fff;box-shadow:0 0 0 2px var(--cyan)}
 button.main:hover{filter:brightness(1.06)}
 button[disabled]{opacity:.55;cursor:not-allowed;filter:grayscale(.3)}
 button.sm{padding:2px 14px;font-size:15px}
 
 table{border-collapse:collapse;width:100%;font-size:16px}
-th,td{padding:6px 10px;text-align:left;border-bottom:2px dotted #c4d2d8}
+/* Row separators use the same spaced dots as .rule; a CSS "dotted" border
+   packs its dots so tightly they read as a solid line. */
+th,td{padding:6px 10px 9px;text-align:left;background:radial-gradient(circle,#8c8c8c 1.2px,transparent 1.7px) 0 100%/8px 6px repeat-x}
 th{color:var(--cyan-d);font-weight:normal;cursor:pointer;white-space:nowrap}
 
 #msg{display:none}#msg.ok,#msg.bad{display:block;font-weight:bold}
 
 /* the points card */
 .card{position:relative;max-width:460px;margin:12px auto 6px;padding:18px 22px 20px;border-radius:18px;color:#fff;
-  background:linear-gradient(135deg,#5fd0f6 0,var(--cyan) 55%,#2aa8dc 100%);box-shadow:0 0 0 3px #fff,0 0 0 5px var(--cyan),0 8px 18px rgba(52,190,237,.4)}
+  background:var(--cyan);box-shadow:0 0 0 3px #fff,0 0 0 5px var(--cyan)}
 .card small{display:block;opacity:.92;letter-spacing:1px;text-transform:uppercase;font-size:13px}
 .card .num{font-size:27px;letter-spacing:2px;margin:10px 0 2px;font-variant-numeric:tabular-nums;white-space:nowrap}
-.card .pts{position:absolute;right:20px;top:14px;font-size:28px;text-shadow:0 1px 2px rgba(0,0,0,.2)}
+.card .pts{position:absolute;right:20px;top:14px;font-size:28px}
 .card .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 .card button{padding:4px 16px;font-size:15px}
 .cardlist .card{margin-left:0}
