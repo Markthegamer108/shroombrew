@@ -21,12 +21,12 @@ I18N.ready(function(){
   document.getElementById("s").textContent=I18N.t("st_checking");
   I18N.onChange=show;
   var x=new XMLHttpRequest(),t0=new Date().getTime();
-  x.open("GET","https://shroombrew.3-72-19-139.sslip.io/healthz?t="+t0,true);
+  x.open("GET","https://shop.shroombrew.org/healthz?t="+t0,true);
   x.onreadystatechange=function(){if(x.readyState!==4)return;
     state={ok:x.status===200,code:x.status,ms:new Date().getTime()-t0,time:new Date().toLocaleString()};show();};
   x.send();
 });
 })();
 </script>
-<script src="https://shroombrew.3-72-19-139.sslip.io/shroombrew-season.js"></script>
+<script src="https://shop.shroombrew.org/shroombrew-season.js"></script>
 </div></body></html>

@@ -1,6 +1,6 @@
 # Shroombrew community site
 
-The website for [Shroombrew](https://shroombrew.3-72-19-139.sslip.io/), a free Wii Shop Channel style
+The website for [Shroombrew](https://shop.shroombrew.org/), a free Wii Shop Channel style
 downloader for homebrew. Get Wii Points cards, link your Wii, send gifts and
 browse the catalog.
 

@@ -3,7 +3,7 @@
   // The server's address. Empty when these pages are served by the server itself;
   // the GitHub Pages build fills it in. There the session cannot be a cookie
   // (browsers block them across sites), so it is kept here and sent as a header.
-  var BASE = "https://shroombrew.3-72-19-139.sslip.io";
+  var BASE = "https://shop.shroombrew.org";
   var KEY = "shroombrew_session";
   function token() { try { return BASE ? localStorage.getItem(KEY) : null; } catch (e) { return null; } }
   function keep(t) { try { if (t) localStorage.setItem(KEY, t); else localStorage.removeItem(KEY); } catch (e) {} }

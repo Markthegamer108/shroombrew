@@ -2,7 +2,7 @@
    pale blue edges, cyan headings, dotted rules, soft round buttons.
    The Wii font file is served by the shop itself; system fonts cover every
    language the font lacks glyphs for. */
-@font-face{font-family:"WiiShop";src:url('https://shroombrew.3-72-19-139.sslip.io/archive-shop/assets/font2.ttf')}
+@font-face{font-family:"WiiShop";src:url('https://shop.shroombrew.org/archive-shop/assets/font2.ttf')}
 
 :root{--cyan:#34beed;--cyan-d:#1d9fd0;--ink:#323232;--mute:#7a8a92;--pale:#e8f7fd;--edge:#cdeefa;--ok:#1b8a3a;--bad:#c0392b}
 *{box-sizing:border-box}
