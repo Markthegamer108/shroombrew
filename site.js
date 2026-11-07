@@ -30,10 +30,14 @@
         function render() {
           var box = $("cards"); if (!box) return; App.clear(box);
           load().forEach(function (c) {
-            var d = document.createElement("div"); d.className = "card"; d.setAttribute("data-pts", c.points || 1000);
-            var s = document.createElement("small"); s.textContent = I18N.t("k_card"); d.appendChild(s);
-            var p = document.createElement("span"); p.className = "pts"; p.textContent = c.points || 1000; d.appendChild(p);
-            var n = document.createElement("div"); n.className = "num"; n.textContent = c.code; d.appendChild(n);
+            var pts = c.points || 1000;
+            var d = document.createElement("div"); d.className = "card"; d.setAttribute("data-pts", pts);
+            var face = document.createElement("div"); face.className = "face";
+            var s = document.createElement("small"); s.textContent = I18N.t("k_card"); face.appendChild(s);
+            var p = document.createElement("span"); p.className = "pts"; p.textContent = pts; face.appendChild(p);
+            var n = document.createElement("div"); n.className = "num"; n.textContent = c.code; face.appendChild(n);
+            d.appendChild(face);
+            var body = document.createElement("div"); body.className = "body";
             var row = document.createElement("div"); row.className = "row";
             var cp = document.createElement("button"); cp.textContent = I18N.t("k_copy");
             cp.onclick = function () { App.copyText(c.code.replace(/ /g, ""), function () { cp.textContent = I18N.t("k_copied"); setTimeout(function () { cp.textContent = I18N.t("k_copy"); }, 1500); }); };
@@ -49,7 +53,8 @@
               };
               row.appendChild(add);
             }
-            d.appendChild(row); box.appendChild(d);
+            body.appendChild(row);
+            d.appendChild(body); box.appendChild(d);
           });
         }
         function tick() {
