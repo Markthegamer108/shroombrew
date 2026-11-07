@@ -18,7 +18,7 @@
 "i_next3": "More languages - you can help translate, see below",
 "i_np": "Not planned",
 "i_np1": "Disc games, GameCube games and ActionScript 3 Flash games cannot be injected",
-"i_season": "Christmas music plays in the web shop from 1 to 26 December.",
+"i_season": "The shop's music plays here too, with snow all December and surprises on special days. Use the ⚙ button to turn any of it off.",
 "i_translate": "Help translate",
 "i_translate_p": "Every language is one plain text file (lang/xx.json). Copy en.json, translate the right-hand side, and send it in. Missing lines fall back to English.",
 "t_title": "Title Sheet",
