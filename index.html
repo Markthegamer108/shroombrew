@@ -37,7 +37,14 @@
 <template id="p-cards">
 <div class="box hero">
   <h2 data-i18n="k_h">Get your Wii Points card code</h2>
-  <p data-i18n="k_p">Each card is worth 1000 Wii Points and works once.</p>
+  <p data-i18n="k_p">Pick how many Wii Points the card is worth.</p>
+  <p><label><span data-i18n="k_value">Value</span>:
+    <select id="cardValue">
+      <option value="1000">1000 Wii Points</option>
+      <option value="2000">2000 Wii Points</option>
+      <option value="3000">3000 Wii Points</option>
+      <option value="5000">5000 Wii Points</option>
+    </select></label></p>
   <button id="make" class="main" data-i18n="k_btn">Make a card</button>
   <p class="timer" id="timer"></p>
   <p class="muted" data-i18n="k_howto"></p>

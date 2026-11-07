@@ -30,9 +30,9 @@
         function render() {
           var box = $("cards"); if (!box) return; App.clear(box);
           load().forEach(function (c) {
-            var d = document.createElement("div"); d.className = "card";
+            var d = document.createElement("div"); d.className = "card"; d.setAttribute("data-pts", c.points || 1000);
             var s = document.createElement("small"); s.textContent = I18N.t("k_card"); d.appendChild(s);
-            var p = document.createElement("span"); p.className = "pts"; p.textContent = "1000"; d.appendChild(p);
+            var p = document.createElement("span"); p.className = "pts"; p.textContent = c.points || 1000; d.appendChild(p);
             var n = document.createElement("div"); n.className = "num"; n.textContent = c.code; d.appendChild(n);
             var row = document.createElement("div"); row.className = "row";
             var cp = document.createElement("button"); cp.textContent = I18N.t("k_copy");
@@ -65,9 +65,10 @@
         }
         $("make").onclick = function () {
           $("make").disabled = true;
-          App.call("POST", "cards/generate", {}, function (st, d) {
+          var pts = parseInt($("cardValue").value, 10) || 1000;
+          App.call("POST", "cards/generate", { points: pts }, function (st, d) {
             if (st === 200) {
-              var list = load(); list.unshift({ code: d.code, at: Date.now() }); save(list);
+              var list = load(); list.unshift({ code: d.code, points: d.points || pts, at: Date.now() }); save(list);
               render(); $("msg").className = ""; // the new card itself is the result
               wait(d.cooldown || 15);
             } else {
