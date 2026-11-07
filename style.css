@@ -54,6 +54,7 @@ th{color:var(--cyan-d);font-weight:normal;cursor:pointer;white-space:nowrap}
 .card[data-pts="1000"]{background:linear-gradient(135deg,#34beed 0,#1d9fd0 100%);box-shadow:0 0 0 3px #fff,0 0 0 5px #34beed}
 .card[data-pts="2000"]{background:linear-gradient(135deg,#2e86de 0,#1b5fa8 100%);box-shadow:0 0 0 3px #fff,0 0 0 5px #2e86de}
 .card[data-pts="3000"]{background:linear-gradient(135deg,#8e44ad 0,#6c3483 100%);box-shadow:0 0 0 3px #fff,0 0 0 5px #8e44ad}
+.card[data-pts="4000"]{background:linear-gradient(135deg,#16a085 0,#0e6655 100%);box-shadow:0 0 0 3px #fff,0 0 0 5px #16a085}
 .card[data-pts="5000"]{background:linear-gradient(135deg,#f39c12 0,#d68910 100%);box-shadow:0 0 0 3px #fff,0 0 0 5px #f39c12}
 .card small{display:block;opacity:.92;letter-spacing:1px;text-transform:uppercase;font-size:13px}
 .card .num{font-size:26px;letter-spacing:2px;margin:10px 0 2px;font-variant-numeric:tabular-nums;white-space:nowrap;word-break:break-all}
