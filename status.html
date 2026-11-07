@@ -8,24 +8,29 @@
 <nav id="nav" data-page="status"></nav></header>
 <div class="box"><h2 id="s">...</h2>
 <p class="muted" id="d"></p>
-<p class="muted" data-i18n="st_every">Checked again every 10 seconds.</p>
-<p class="bad" id="simnote" style="display:none" data-i18n="st_sim">Simulated outage: the page is checking a server address that cannot answer.</p>
+<p class="muted" id="every"></p>
+<p class="bad" id="simnote" style="display:none"></p>
 <p data-i18n="st_help">Down for you but up here? See Support.</p>
 <p><a href="#down" id="simlink"></a></p></div>
 <script>
 (function(){
 var state=null,timer=null,pending=null;
+// English for strings a cached older language file may not have yet.
+var EN={st_noresp:"No response from the server.",st_every:"Checked again every 10 seconds.",st_sim:"Simulated outage: the page is checking a server address that cannot answer.",st_sim_on:"Simulate an outage",st_sim_off:"Stop the simulation"};
+function T(k,v){var s=I18N.t(k,v);return (s===k&&EN[k])?EN[k]:s;}
 // status.html#down checks an address nothing answers on, so the page's real
 // "offline" path can be tried without taking the shop down.
 function simulated(){return location.hash==="#down";}
 function show(){
   var sim=simulated(),link=document.getElementById("simlink");
+  document.getElementById("every").textContent=T("st_every");
+  document.getElementById("simnote").textContent=T("st_sim");
   document.getElementById("simnote").style.display=sim?"":"none";
-  link.textContent=I18N.t(sim?"st_sim_off":"st_sim_on");
+  link.textContent=T(sim?"st_sim_off":"st_sim_on");
   link.setAttribute("href",sim?"#":"#down");
   if(!state)return;
   document.getElementById("s").innerHTML=state.ok?"<span class='ok'>"+I18N.t("st_online")+"</span>":"<span class='bad'>"+I18N.t("st_offline")+"</span>";
-  document.getElementById("d").textContent=state.ok?I18N.t("st_resp",{ms:state.ms,time:state.time}):(state.code?I18N.t("st_fail",{n:state.code}):I18N.t("st_noresp"))+" "+state.time;
+  document.getElementById("d").textContent=state.ok?I18N.t("st_resp",{ms:state.ms,time:state.time}):(state.code?I18N.t("st_fail",{n:state.code}):T("st_noresp"))+" "+state.time;
 }
 function check(){
   if(pending)pending.abort();
