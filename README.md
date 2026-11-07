@@ -12,3 +12,4 @@ This repository is generated from the Shroombrew source (`community/`) by
 (cards, linking, gifts) run on the Shroombrew server.
 
 Not affiliated with Nintendo.
+

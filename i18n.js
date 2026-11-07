@@ -5,9 +5,9 @@
 (function () {
   var LANGS = [["en", "English"], ["ja", "日本語"], ["de", "Deutsch"], ["fr", "Français"], ["es", "Español"],
     ["it", "Italiano"], ["nl", "Nederlands"], ["ko", "한국어"], ["zh-cn", "简体中文"], ["zh-tw", "繁體中文"], ["pt", "Português"]];
-  var MENU = [["index", "index.html", "n_community"], ["cards", "cards.html", "n_cards"], ["link", "link.html", "n_link"],
-    ["friends", "friends.html", "n_friends"], ["history", "history.html", "h_title"], ["titles", "titles.html", "n_titles"],
-    ["support", "support.html", "n_support"], ["status", "status.html", "n_status"], ["shop", "https://shop.shroombrew.org/", "n_shop"]];
+  var MENU = [["index", "#index", "n_community"], ["cards", "#cards", "n_cards"], ["link", "#link", "n_link"],
+    ["friends", "#friends", "n_friends"], ["history", "#history", "h_title"], ["titles", "#titles", "n_titles"],
+    ["support", "#support", "n_support"], ["status", "#status", "n_status"], ["shop", "https://shop.shroombrew.org/", "n_shop"]];
   var en = {}, cur = {}, code = "en", waiting = [], loaded = false;
 
   function getCookie(n) { var m = document.cookie.match(new RegExp("(?:^|; )" + n + "=([^;]*)")); return m ? m[1] : null; }
@@ -108,6 +108,7 @@
 
   window.I18N = {
     t: t,
+    refresh: function () { apply(); },
     lang: function () { return code; },
     ready: function (fn) { if (loaded) fn(); else waiting.push(fn); },
     onChange: null,
