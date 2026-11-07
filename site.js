@@ -1,8 +1,6 @@
-/* The Shroombrew website as one page. Each page is a <template id="p-NAME">
-   in index.html plus an entry in PAGES below: its heading's translation key,
-   start(params) to fill it in and an optional stop() that ends its timers.
-   Addresses are #NAME, with options after & (#status&down, #friends&gift=x).
-   Old addresses such as cards.html are sent here by 404.html. */
+/* One page for the whole site: index.html holds a <template id="p-NAME"> per
+   page and PAGES below starts it. Addresses are #NAME (&options after, like
+   #status&down); 404.html sends old cards.html-style URLs here. */
 (function () {
   function $(id) { return document.getElementById(id); }
   var gamesWaiting = null;
