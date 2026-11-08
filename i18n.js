@@ -7,7 +7,7 @@
     ["it", "Italiano"], ["nl", "Nederlands"], ["ko", "한국어"], ["zh-cn", "简体中文"], ["zh-tw", "繁體中文"], ["pt", "Português"]];
   var MENU = [["index", "#index", "n_community"], ["cards", "#cards", "n_cards"], ["link", "#link", "n_link"],
     ["friends", "#friends", "n_friends"], ["history", "#history", "h_title"], ["titles", "#titles", "n_titles"],
-    ["support", "#support", "n_support"], ["status", "#status", "n_status"], ["shop", "https://shop.shroombrew.org/", "n_shop"]];
+    ["support", "#support", "n_support"], ["status", "#status", "n_status"], ["shop", "https://shop.shroombrew.org/", "n_shop"], ["wad", "#wad", "n_wad"]];
   var en = {}, cur = {}, code = "en", waiting = [], loaded = false;
 
   function getCookie(n) { var m = document.cookie.match(new RegExp("(?:^|; )" + n + "=([^;]*)")); return m ? m[1] : null; }

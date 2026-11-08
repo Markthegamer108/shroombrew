@@ -18,6 +18,8 @@
   var PAGES = {
     index: { title: "i_title" },
 
+    wad: { title: "wad_h" },
+
     cards: {
       title: "k_title",
       start: function () {

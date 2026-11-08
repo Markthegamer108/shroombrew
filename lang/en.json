@@ -329,5 +329,15 @@
 "c_quit": "Quit",
 "c_buy_title": "Buy Wii Points with a Credit Card",
 "c_buy_text": "Shroombrew is free, so Wii Points are free too. Credit card purchases are not available here.",
-"c_buy_text2": "To add Wii Points, redeem a Wii Points Card. Get a card code at {site}."
+"c_buy_text2": "To add Wii Points, redeem a Wii Points Card. Get a card code at {site}.",
+"n_wad": "WAD",
+"wad_h": "Wii Shop Channel WAD",
+"wad_p": "Install the patched Wii Shop Channel on a real Wii.",
+"wad_dl": "Download WAD",
+"wad_meta": "USA v21 · 26,051,584 bytes · SHA-256 8b9e46bf8a6cd85d6c6624e366eedc4b8245f9fcc0bb014df26448cc10c3a0ca",
+"wad_steps": "Install",
+"wad_s1": "Copy the WAD to the WAD folder on your SD card or USB drive.",
+"wad_s2": "Use YAWMME (YAWM ModMii Edition) or Wii Mod Lite under IOS249.",
+"wad_s3": "Install to Wii System Memory (NAND), then launch Wii Shop Channel.",
+"wad_warn": "Original Wii only, not vWii/Wii U. Back up your NAND first. If it still tries Nintendo, delete the Wii Shop Channel save data (not the channel) and relaunch."
 }
