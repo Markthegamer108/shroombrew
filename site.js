@@ -206,16 +206,33 @@
     titles: {
       title: "t_title",
       start: function () {
-        var G = [], LIMIT = 300, gs = $("genre");
+        var G = [], LIMIT = 300, gs = $("genre"), LICENSED = { "Virtual Console": 1, WiiWare: 1, DLC: 1, Channels: 1 };
         function norm(s) { return String(s || "").toLowerCase().replace(/[^a-z0-9]/g, ""); }
         function mb(b) { return b ? (b / 1048576 < 1 ? (b / 1024).toFixed(0) + " KB" : (b / 1048576).toFixed(1) + " MB") : ""; }
         function slugOf(g) { return g.link && g.link.indexOf("/download/") === 0 ? g.link.slice(10) : ""; }
+        // Licensed titles carry their shop section in genre and the real genre in
+        // displayGenre; homebrew uses genre for its own category (games, utilities...).
+        function sectionOf(g) { return LICENSED[g.genre] ? g.genre : "Homebrew"; }
+        function genreOf(g) { var d = LICENSED[g.genre] ? g.displayGenre : g.genre; return d ? d.charAt(0).toUpperCase() + d.slice(1) : ""; }
+        // "Puzzle, Adventure" counts as both genres.
+        function genresOf(g) { return genreOf(g).split(/\s*[,\/]\s*/); }
+        function fillGenres() {
+          var se = $("section").value, keep = gs.value, seen = {}, names = [];
+          while (gs.options.length > 1) gs.removeChild(gs.options[1]);
+          G.forEach(function (g) {
+            if (se && sectionOf(g) !== se) return;
+            genresOf(g).forEach(function (n) { if (n && !seen[n]) { seen[n] = 1; names.push(n); } });
+          });
+          names.sort().forEach(function (v) { var e = document.createElement("option"); e.value = v; e.textContent = v; gs.appendChild(e); });
+          gs.value = seen[keep] ? keep : "";
+        }
         function render() {
           if (!$("q")) return;
-          var q = norm($("q").value), ge = gs.value, s = $("sort").value;
+          var q = norm($("q").value), se = $("section").value, ge = gs.value, s = $("sort").value;
           var L = G.filter(function (g) {
-            if (ge && g.genre !== ge) return false;
-            return !q || norm(g.title1 + g.title2 + g.publisher + g.genre + g.description).indexOf(q) > -1;
+            if (se && sectionOf(g) !== se) return false;
+            if (ge && genresOf(g).indexOf(ge) < 0) return false;
+            return !q || norm(g.title1 + g.title2 + g.publisher + g.console + genreOf(g) + g.description).indexOf(q) > -1;
           });
           L.sort(function (a, b) {
             if (s === "new") return (b.releaseUnix || 0) - (a.releaseUnix || 0);
@@ -227,7 +244,7 @@
           var tb = document.querySelector("#t tbody"); tb.innerHTML = "";
           L.slice(0, LIMIT).forEach(function (g) {
             var tr = document.createElement("tr");
-            [g.title1, g.genre, g.publisher, g.date, mb(g.size)].forEach(function (v) { var td = document.createElement("td"); td.textContent = v || ""; tr.appendChild(td); });
+            [g.title1, g.console, genreOf(g), g.publisher, g.points == null ? "" : String(g.points), g.date, mb(g.size)].forEach(function (v) { var td = document.createElement("td"); td.textContent = v || ""; tr.appendChild(td); });
             var td = document.createElement("td");
             if (g.link) {
               var a = document.createElement("a"); a.href = (g.link.charAt(0) === "/" ? App.base : "") + g.link; a.textContent = I18N.t("t_download"); td.appendChild(a);
@@ -240,15 +257,14 @@
           $("more").textContent = L.length > LIMIT ? I18N.t("t_more", { n: LIMIT }) : "";
         }
         $("q").addEventListener("input", render);
+        $("section").addEventListener("change", function () { fillGenres(); render(); });
         gs.addEventListener("change", render);
         $("sort").addEventListener("change", render);
         $("q").focus();
         withGames(function () {
           if (!$("genre")) return;
           G = window.gameslist.filter(function (g) { return g.id; });
-          var seen = {}, names = [];
-          G.forEach(function (g) { if (g.genre && !seen[g.genre]) { seen[g.genre] = 1; names.push(g.genre); } });
-          names.sort().forEach(function (v) { var e = document.createElement("option"); e.value = v; e.textContent = v; gs.appendChild(e); });
+          fillGenres();
           render();
         });
         I18N.onChange = render;

@@ -28,9 +28,10 @@
 <li><a href="#status" data-i18n="i_status">Status</a></li></ul>
 <p class="muted" data-i18n="i_season"></p></div>
 <div class="box"><h2 data-i18n="i_next">Coming next</h2><ul>
-<li data-i18n="i_next1"></li><li data-i18n="i_next2"></li><li data-i18n="i_next3"></li></ul>
-<h2 data-i18n="i_np">Not planned</h2><ul><li data-i18n="i_np1"></li></ul></div>
-<div class="box"><h2 data-i18n="i_translate">Help translate</h2><p data-i18n="i_translate_p"></p></div>
+<li data-i18n="i_next1"></li><li data-i18n="i_next2"></li></ul>
+<h2 data-i18n="i_np">Not planned</h2><ul><li data-i18n="i_np1"></li><li data-i18n="i_np2"></li><li data-i18n="i_np3"></li></ul></div>
+<div class="box"><h2 data-i18n="i_translate">Help translate</h2><p data-i18n="i_translate_p"></p>
+<p><a class="btn" href="mailto:translations@shroombrew.org?subject=Shroombrew%20translation">translations@shroombrew.org</a></p></div>
 </template>
 
 <template id="p-cards">
@@ -111,6 +112,14 @@
 <template id="p-titles">
 <div class="box">
   <input id="q" type="search" data-i18n-ph="t_search" placeholder="Search titles, publishers, descriptions..." size="38">
+  <select id="section">
+    <option value="" data-i18n="t_all_sections">All sections</option>
+    <option value="Homebrew" data-i18n="t_s_hb">Homebrew</option>
+    <option value="Virtual Console">Virtual Console</option>
+    <option value="WiiWare">WiiWare</option>
+    <option value="DLC" data-i18n="t_s_dlc">WiiWare add-ons (DLC)</option>
+    <option value="Channels" data-i18n="t_s_ch">Wii Channels</option>
+  </select>
   <select id="genre"><option value="" data-i18n="t_all_genres">All genres</option></select>
   <select id="sort">
     <option value="alpha" data-i18n="t_alpha">Alphabetical</option>
@@ -121,7 +130,7 @@
   </select>
   <span id="count" class="muted"></span>
 </div>
-<div class="box"><table id="t"><thead><tr><th data-i18n="t_c_title">Title</th><th data-i18n="t_c_genre">Genre</th><th data-i18n="t_c_pub">Publisher</th><th data-i18n="t_c_rel">Released</th><th data-i18n="t_c_size">Size</th><th></th></tr></thead><tbody></tbody></table>
+<div class="box" style="overflow-x:auto"><table id="t"><thead><tr><th data-i18n="t_c_title">Title</th><th data-i18n="t_c_plat">Platform</th><th data-i18n="t_c_genre">Genre</th><th data-i18n="t_c_pub">Publisher</th><th data-i18n="t_c_pts">Wii Points</th><th data-i18n="t_c_rel">Released</th><th data-i18n="t_c_size">Size</th><th></th></tr></thead><tbody></tbody></table>
 <p class="muted" id="more"></p></div>
 </template>
 
