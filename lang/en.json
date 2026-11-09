@@ -332,7 +332,7 @@
 "c_buy_text2": "To add Wii Points, redeem a Wii Points Card. Get a card code at {site}.",
 "n_wad": "WAD",
 "wad_h": "Wii Shop Channel WAD",
-"wad_p": "Install the patched Wii Shop Channel on a real Wii.",
+"wad_p": "Install the patched Wii Shop Channel on a Wii.",
 "wad_dl": "Download WAD",
 "wad_meta": "USA v21 · 26,051,584 bytes · SHA-256 8b9e46bf…c3a0ca",
 "wad_steps": "Install",
