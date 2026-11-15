@@ -371,7 +371,7 @@
     $("title").setAttribute("data-i18n", current.title);
     $("msg").className = "";
     I18N.refresh();
-    document.title = name === "index" ? "Shroombrew" : "Shroombrew - " + I18N.t(current.title);
+    document.title = name === "index" ? "Shroombrew - Wii Shop Channel community" : "Shroombrew - " + I18N.t(current.title);
     if (current.start) current.start(params);
     window.scrollTo(0, 0);
   }

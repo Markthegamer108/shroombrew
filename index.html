@@ -1,6 +1,30 @@
 <!DOCTYPE html>
-<html><head><meta charset="utf-8"><title>Shroombrew</title>
+<html><head><meta charset="utf-8">
+<title>Shroombrew - Wii Shop Channel community</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Shroombrew is a free, fan-made Wii Shop Channel revival: make Wii Points cards, browse every title, and install the patched channel on a real Wii.">
+<link rel="canonical" href="https://shroombrew.org/">
+<meta name="robots" content="index,follow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Shroombrew">
+<meta property="og:title" content="Shroombrew - Wii Shop Channel revival">
+<meta property="og:description" content="Free Wii Points cards, the full title sheet, and a patched Wii Shop Channel that runs on a real Wii.">
+<meta property="og:url" content="https://shroombrew.org/">
+<meta property="og:image" content="https://shroombrew.org/og-image.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Shroombrew: Wii Shop Channel revival, with the mushroom logo">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Shroombrew - Wii Shop Channel revival">
+<meta name="twitter:description" content="Free Wii Points cards, the full title sheet, and a patched Wii Shop Channel that runs on a real Wii.">
+<meta name="twitter:image" content="https://shroombrew.org/og-image.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"Organization","@id":"https://shroombrew.org/#org","name":"Shroombrew","url":"https://shroombrew.org/","logo":"https://shroombrew.org/favicon-512.png","description":"Fan-made Wii Shop Channel revival with free Wii Points cards and a patched channel for a real Wii."},
+{"@type":"WebSite","@id":"https://shroombrew.org/#site","url":"https://shroombrew.org/","name":"Shroombrew","alternateName":"Shroombrew Community","inLanguage":"en","publisher":{"@id":"https://shroombrew.org/#org"}}]}
+</script>
+<link rel="preconnect" href="https://shop.shroombrew.org" crossorigin>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
@@ -8,15 +32,19 @@
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#34beed">
 <link rel="stylesheet" href="style.css">
-<script src="i18n.js"></script><script src="app.js"></script><script src="site.js"></script></head>
+<script src="lang/en-inline.js"></script><script src="i18n.js"></script><script src="app.js"></script><script src="site.js"></script></head>
 <body><div class="wrap">
 <!-- The whole website is this one page. site.js shows one of the templates
      below for the address's #page (#cards, #link, ...); the frame around it,
      the menu and the music stay put while you move between pages. -->
-<header class="top"><h1 id="title"></h1><div class="rule"></div>
-<nav id="nav" data-page="index"></nav></header>
+<header class="top"><h1 id="title" data-i18n="i_title">Shroombrew Community</h1><div class="rule"></div>
+<nav id="nav" data-page="index"><span class="cur">Community</span><a href="#cards">Wii Points</a><a href="#link">Link</a><a href="#friends">Friends</a><a href="#history">Points history</a><a href="#titles">Titles</a><a href="#support">Support</a><a href="#status">Status</a><a href="https://shop.shroombrew.org/">Wii Shop Channel</a><a href="#wad">WAD</a></nav></header>
 <div id="msg"></div>
 <main id="view"></main>
+<noscript><div class="box"><h2>Shroombrew</h2>
+<p>A free, fan-made revival of the Wii Shop Channel. Make a Wii Points card, browse the full title sheet, and install the patched channel on a real Wii.</p>
+<p><a href="https://shop.shroombrew.org/">Open the shop</a> &middot; <a href="https://shroombrew.org/WiiShop-Shroombrew-v21.wad">Download the WAD</a></p>
+<p class="muted">This page needs JavaScript for the cards, the title sheet and the rest. Everything above still works without it.</p></div></noscript>
 
 <template id="p-index">
 <div class="box hero">
@@ -37,6 +65,9 @@
 <h2 data-i18n="i_np">Not planned</h2><ul><li data-i18n="i_np1"></li><li data-i18n="i_np2"></li><li data-i18n="i_np3"></li></ul></div>
 <div class="box"><h2 data-i18n="i_translate">Help translate</h2><p data-i18n="i_translate_p"></p>
 <p><a class="btn" href="mailto:translations@shroombrew.org?subject=Shroombrew%20translation">translations@shroombrew.org</a></p></div>
+<div class="box" id="about"><h2 data-i18n="a_h">About Shroombrew</h2>
+<p data-i18n="a_p1"></p><p data-i18n="a_p2"></p><p data-i18n="a_p3"></p><p data-i18n="a_p4"></p>
+<p class="muted" data-i18n="a_p5"></p></div>
 </template>
 
 <template id="p-cards">
@@ -172,7 +203,7 @@
 <p><a href="#status&amp;down" id="simlink"></a></p></div>
 </template>
 
-<script src="https://shop.shroombrew.org/shroombrew-season.js"></script>
+<script src="https://shop.shroombrew.org/shroombrew-season.js" defer></script>
 </div>
 <template id="p-wad">
 <div class="box hero">

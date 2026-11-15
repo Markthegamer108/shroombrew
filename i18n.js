@@ -8,7 +8,10 @@
   var MENU = [["index", "#index", "n_community"], ["cards", "#cards", "n_cards"], ["link", "#link", "n_link"],
     ["friends", "#friends", "n_friends"], ["history", "#history", "h_title"], ["titles", "#titles", "n_titles"],
     ["support", "#support", "n_support"], ["status", "#status", "n_status"], ["shop", "https://shop.shroombrew.org/", "n_shop"], ["wad", "#wad", "n_wad"]];
-  var en = {}, cur = {}, code = "en", waiting = [], loaded = false;
+  // English is also shipped as a plain script (lang/en-inline.js) so the page
+  // can be drawn before any request finishes. See tools/make-en-inline.py.
+  var SEED = window.SHROOMBREW_EN || null;
+  var en = SEED || {}, cur = {}, code = "en", waiting = [], loaded = false;
 
   function getCookie(n) { var m = document.cookie.match(new RegExp("(?:^|; )" + n + "=([^;]*)")); return m ? m[1] : null; }
   function setCookie(n, v) { document.cookie = n + "=" + v + "; path=/; max-age=157680000; SameSite=Lax"; }
@@ -93,15 +96,19 @@
 
   function load(c, done) {
     code = c;
-    get("lang/en.json", function (e) {
-      en = e;
+    function pickFile() {
       if (c === "en") { cur = {}; return done(); }
       get("lang/" + c + ".json", function (d) { cur = d; done(); });
-    });
+    }
+    if (en !== null && Object.keys(en).length) return pickFile();
+    get("lang/en.json", function (e) { en = e; pickFile(); });
   }
 
   function finish() {
     loaded = true; apply();
+    // Called from <head> (English is already in memory), the body may not be
+    // parsed yet, so draw the menu and footer once it is.
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", apply);
     var f = waiting; waiting = [];
     for (var i = 0; i < f.length; i++) f[i]();
   }
@@ -118,5 +125,17 @@
       load(c, function () { apply(); if (I18N.onChange) I18N.onChange(); });
     }
   };
-  load(pick(), finish);
+  // Draw in English at once (it is already in memory), then swap in the chosen
+  // language when its file arrives. Pages are never blank while waiting.
+  var start = pick();
+  if (SEED && start !== "en") {
+    en = SEED; code = "en"; cur = {}; finish();
+    get("lang/" + start + ".json", function (d) {
+      if (!d || !Object.keys(d).length) return;
+      code = start; cur = d; apply();
+      if (I18N.onChange) I18N.onChange();
+    });
+  } else {
+    load(start, finish);
+  }
 })();
