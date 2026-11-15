@@ -221,6 +221,7 @@
 "k_h": "Get your Wii Points card code",
 "k_p": "Cards are worth 1000 to 5000 Wii Points each and work once.",
 "k_pick": "Pick how many Wii Points the card is worth.",
+"k_value": "Value",
 "k_btn": "Make a card",
 "k_wait": "Next card in {n} s",
 "k_card": "Wii Points Card",
