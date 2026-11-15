@@ -1,6 +1,6 @@
 # Shroombrew
 
-A homebrew shop built on WiiSOAP, with a permissioned copy of Nathan's wiishopchannel.net browser frontend and a separate native Wii compatibility frontend. The server's homebrew catalog is supplied by Open Shop Channel.
+A homebrew shop built on WiiSOAP, with a permissioned copy of Nathan Boehm's wiishopchannel.net browser frontend and a separate native Wii compatibility frontend. The server's homebrew catalog is supplied by Open Shop Channel.
 
 ## Browser reference copy — October 17, 2026
 
@@ -48,7 +48,7 @@ Production uses the existing Wii-compatible proxy and certificate configuration 
 
 ## Credits and license
 
-Thanks to Nathan / Comp Arison of [wiishopchannel.net](https://wiishopchannel.net/) for permission to adapt his frontend and for directing us to the preserved [Wii Shop Channel HTML backup](https://archive.org/details/WiiShopChannelBackup). Thanks to [Open Shop Channel](https://oscwii.org/) for its catalog and [WiiSOAP](https://github.com/OpenShopChannel/WiiSOAP) for the server foundation.
+Thanks to Nathan Boehm / Comp Arison of [wiishopchannel.net](https://wiishopchannel.net/) for permission to adapt the wiishopchannel.net frontend and for directing us to the preserved [Wii Shop Channel HTML backup](https://archive.org/details/WiiShopChannelBackup). Thanks to [Open Shop Channel](https://oscwii.org/) for its catalog and [WiiSOAP](https://github.com/OpenShopChannel/WiiSOAP) for the server foundation.
 
 The existing AGPL-3.0-or-later license in `LICENSE` is retained. Imported frontend files retain their attribution and notices. The matching server source is available at `/source/shroombrew-source.tar.gz`.
 
