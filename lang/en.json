@@ -19,7 +19,6 @@
 "i_np1": "Disc games and GameCube games - only downloadable titles can go through the shop.",
 "i_np2": "Flash games made with ActionScript 3 - the Wii's Flash player cannot run them.",
 "i_np3": "Selling Wii Points - Shroombrew and its points stay free.",
-"i_season": "The shop's music plays here too, with snow all December and surprises on special days. Use the ⚙ button to turn any of it off.",
 "i_translate": "Help translate",
 "i_translate_p": "Every language is one plain text file (lang/xx.json). Copy en.json, translate the text on the right of each line and email the file to the address below. Lines you skip stay in English.",
 "t_title": "Title Sheet",
