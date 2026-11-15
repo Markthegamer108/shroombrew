@@ -1,0 +1,7 @@
+.idea
+config.xml
+WiiSOAP
+tmp/
+
+__pycache__/
+*.pyc

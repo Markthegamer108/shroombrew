@@ -1,0 +1,25 @@
+{{template "chromeTop" .}}<style type="text/css">
+  /* For P_06:  Purchase Point Options */
+#text01-01 {position:absolute;left:29px;top:28px;width:442px;height:28px;z-index:35;}
+#text02-01 {position:absolute;left:34px;top:115px;width:540px;z-index:27;}
+.pointOption {position:absolute;top:165px;width:122px;height:105px;}
+.ptSpacer {position:absolute;left:0px;width:100%;height:100%;z-index:20;}
+.ptShadow {position:absolute;left:-8%;right:-8%;top:-13px;width:139px;height:130px;z-index:15;}
+.ptImg {position:absolute;left:0px;width:100%;height:100%;z-index:16;}
+.ptValue {position:absolute;text-align:center;top:5%;left:5%;width:90%;z-index:19;}
+.wiiPtWords {position:absolute;text-align:center;left:5%;top:38%;width:90%;z-index:18;}
+.ptCost {position:absolute;text-align:center;left:5%;width:95%;top:65%;z-index:18;}
+.addpoints {color:#8C8C8C;font-size:32px;}
+#warningMsg {position:absolute;left:36px;top:270px;width:540px;height:105px;z-index:20;}
+</style>{{template "chromeBody" .}}<div id="text01-01" class="titleBlackL">Wii Points Purchase</div>
+<div id="text02-01" align="center" class="contentsBlackM">Please select the number of Wii Points you want to buy.</div>
+{{range $i, $o := .Options}}<div id="point0{{$i}}" style="left:{{$o.Left}}px" class="pointOption">
+  <img src="/archive-shop/assets/images/banner/add_points_a.gif" id="point0{{$i}}Img" class="ptImg"/>
+  <img class="ptShadow" src="/archive-shop/assets/images/banner/banner03_shadow.gif" border="0"/>
+  {{if $o.Enabled}}<img class="ptSpacer pick" src="/archive-shop/assets/images/spacer.gif" border="0" id="point0{{$i}}Pick" data-points="{{$o.Points}}"/>{{else}}<img class="ptSpacer" src="/archive-shop/assets/images/banner/point_gray.png" border="0"/>{{end}}
+  <span class="ptValue addpoints">{{$o.Points}}</span>
+  <span class="wiiPtWords contentsGray bold">Wii Points</span>
+  <span class="ptCost contentsBlackM">{{$o.Price}}</span>
+</div>
+{{end}}{{range .Options}}{{if not .Enabled}}<div align="center" id="warningMsg" class="contentsBlackM">Some options above are not available to you at this time because you cannot purchase Wii Points that will cause you to have more than {{$.Cap}} Wii Points in your account.</div>{{break}}{{end}}{{end}}
+<script>var archiveShop={{.}};</script><script src="/archive-shop/checkout.js?v=4"></script></body></html>
